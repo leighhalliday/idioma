@@ -57,6 +57,8 @@ module Idioma
     # == Instance Methods =====================================================
 
     def update_and_update_backend(params = {})
+      self.translated_at = Time.zone.now if self.untranslated?
+
       if self.update(params)
         self.update_backend
         true

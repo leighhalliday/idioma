@@ -5,7 +5,7 @@ Idioma is a Ruby Engine to help manage the flow and editing of translations.
 ### Current Features
 * Imports translations into database from the config yaml files.
 * Interface for managing translations.
-* Duplicate translations one from locale to other locales.
+* Duplicate translations from one locale to other locales.
 
 ### Pending Features
 * Export translations from DB into CSV or yaml format.
