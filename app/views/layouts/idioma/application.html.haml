@@ -1,0 +1,22 @@
+!!!
+%html
+  %head
+    %title Idioma
+    = stylesheet_link_tag "idioma/application", media: "all"
+    = javascript_include_tag "idioma/application"
+    %meta{name: "viewport", content: "width=device-width, initial-scale=1"}/
+    = csrf_meta_tags
+  %body
+    .navbar.navbar-default.navbar-fixed-top{role: "navigation"}
+      .container
+        %a.navbar-brand{href: "#"} Idioma
+        %ul.nav.navbar-nav
+          %li= link_to t('idioma.phrases'), phrases_url
+
+    - flash_lookups = {notice: "info", success: "success", error: "danger"}
+    - flash.each do |type, value|
+      - flash_class = flash_lookups[type.to_sym] || "info"
+      .alert{class: "alert-#{flash_class}"}= value
+
+    .container
+      = yield

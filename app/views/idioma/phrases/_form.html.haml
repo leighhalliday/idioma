@@ -1,0 +1,26 @@
+= simple_form_for @phrase do |f|
+
+  %p
+    %strong= t('idioma.locale')
+    %br/
+    = @phrase.locale
+
+  %p
+    %strong= t('idioma.key')
+    %br/
+    = @phrase.i18n_key
+
+  - if @phrase.locale.to_sym != Idioma.configuration.default_locale
+    - from_default = t(@phrase.i18n_key.to_sym, locale: Idioma.configuration.default_locale, default: "")
+    - if from_default.present?
+      %p
+        %strong= t('idioma.default_locale_value')
+        %br/
+        = from_default
+
+  = f.input :i18n_value, value: @phrase.i18n_value.to_s, label: t('idioma.value')
+  = f.input :notes, label: t('idioma.notes')
+
+  .highlight
+    = f.button :submit, class: "btn btn-primary", value: t('idioma.save')
+    = link_to t('idioma.cancel'), phrases_path, class: "btn btn-default"

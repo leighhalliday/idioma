@@ -1,0 +1,16 @@
+en:
+  idioma:
+    record_not_found: "Record not found"
+    record_updated: "Record has been updated"
+
+    edit: "Edit"
+    search: "Search"
+    locale: "Locale"
+    key: "Key"
+    value: "Value"
+    key_value: "Key / Value"
+    phrases: "Phrases"
+    untranslated: "Untranslated"
+    notes: "Notes"
+    save: "Save"
+    editing_phrase: "Editing Phrase"

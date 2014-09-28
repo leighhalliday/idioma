@@ -1,0 +1,33 @@
+%h1= t('idioma.phrases')
+
+.highlight
+  = search_form_for @q, :builder => SimpleForm::FormBuilder, class: "form-inline search" do |f|
+    = f.input :locale_eq, collection: Idioma.configuration.locales, required: false, empty: true, label: t('idioma.locale')
+    = f.input :i18n_key_or_i18n_value_cont, label: t('idioma.key_value'), required: false
+    = f.button :submit, value: t('idioma.search')
+
+%table.table
+  %thead
+    %tr
+      %th= sort_link(@q, :locale, t('idioma.locale'))
+      %th= sort_link(@q, :i18n_key, t('idioma.key'))
+      %th= sort_link(@q, :i18n_value, t('idioma.value'))
+      %th
+      %th
+    - @phrases.each do |phrase|
+      %tr
+        %td= phrase.locale
+        %td= phrase.i18n_key
+        %td
+          - if phrase.locale.to_sym != Idioma.configuration.default_locale
+            - from_default = t(phrase.i18n_key.to_sym, locale: Idioma.configuration.default_locale, default: "")
+            - if from_default.present?
+              %small= from_default
+              %br/
+          = phrase.i18n_value
+        %td
+          - if phrase.untranslated?
+            %span.label.label-warning= t('idioma.untranslated')
+        %td= link_to t('idioma.edit'), edit_phrase_path(phrase), class: "btn btn-default"
+
+= will_paginate @posts
