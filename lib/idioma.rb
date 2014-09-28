@@ -3,7 +3,7 @@ require "idioma/engine"
 module Idioma
 
   class Configuration
-    attr_accessor :default_locale, :locales, :ignore_keys
+    attr_accessor :default_locale, :locales, :ignore_keys, :redis_backend
 
     def initialize
       self.default_locale = :en

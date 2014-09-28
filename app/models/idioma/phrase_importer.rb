@@ -31,7 +31,7 @@ module Idioma
           phrase.i18n_value = value
           phrase.translated_at = Time.zone.now if value.present?
         end
-        phrase.save!
+        phrase.save_and_update_backend
       end
     end
 

@@ -16,7 +16,7 @@ module Idioma
 
     # PATCH/PUT /phrases/1
     def update
-      if @phrase.update(phrase_params)
+      if @phrase.update_and_update_backend(phrase_params)
         redirect_to [:edit, @phrase], flash: {success: t('idioma.record_updated')}
       else
         render :edit

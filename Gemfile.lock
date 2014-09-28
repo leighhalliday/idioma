@@ -115,6 +115,7 @@ GEM
       activesupport (>= 3.0)
       i18n
       polyamorous (~> 1.1)
+    redis (3.1.0)
     rspec-core (3.1.4)
       rspec-support (~> 3.1.0)
     rspec-expectations (3.1.2)
@@ -166,6 +167,7 @@ DEPENDENCIES
   jquery-rails (~> 3.1.2)
   rails (~> 4.2.0.beta1)
   ransack (~> 1.4.1)
+  redis (~> 3.1.0)
   rspec-rails
   simple_form (~> 3.1.0.rc2)
   sqlite3

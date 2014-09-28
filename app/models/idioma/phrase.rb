@@ -26,6 +26,8 @@ module Idioma
 
     # == Callbacks ============================================================
 
+    before_validation :strip_values
+
     # == Class Methods ========================================================
 
     # Given a base locale, duplicate all phrases to a set of other locales
@@ -46,7 +48,41 @@ module Idioma
       end
     end
 
+    def self.prime_backend
+      find_each do |phrase|
+        phrase.update_backend
+      end
+    end
+
     # == Instance Methods =====================================================
+
+    def update_and_update_backend(params = {})
+      if self.update(params)
+        self.update_backend
+        true
+      else
+        false
+      end
+    end
+
+    def save_and_update_backend(params = {})
+      if self.save(params)
+        self.update_backend
+        true
+      else
+        false
+      end
+    end
+
+    def update_backend
+      if Idioma.configuration.redis_backend
+        if i18n_value.present?
+          Idioma::RedisBackend.update_phrase(self)
+        else
+          Idioma::RedisBackend.delete_phrase(self)
+        end
+      end
+    end
 
     # Is this phrase translated?
     # @returns [Boolean]
@@ -58,6 +94,14 @@ module Idioma
     # @returns [Boolean]
     def untranslated?
       !translated?
+    end
+
+    private
+
+    def strip_values
+      [:i18n_value].each do |field|
+        self.send("#{field}=", self.send(field).to_s.strip)
+      end
     end
 
   end

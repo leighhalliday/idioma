@@ -2,7 +2,6 @@ en:
   idioma:
     record_not_found: "Record not found"
     record_updated: "Record has been updated"
-
     edit: "Edit"
     search: "Search"
     locale: "Locale"
