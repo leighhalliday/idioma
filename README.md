@@ -13,6 +13,7 @@ Idioma is a Ruby Engine to help manage the flow and editing of translations.
 * Import translations from CSV into DB.
 * Stats on each locale, giving percentage of translated/missing.
 * Inline translation editing
+* Test persisting to Redis using https://github.com/guilleiguaran/fakeredis
 
 ### Configuration
 Setting | Default | Description
