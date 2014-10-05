@@ -45,7 +45,6 @@ module Idioma
     # PATCH/PUT /phrases/1
     def update
       result = @phrase.update_and_update_backend(phrase_params)
-
       respond_to do |format|
         format.html {
           if result

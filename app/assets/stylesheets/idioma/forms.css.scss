@@ -7,3 +7,13 @@
     margin-right: 10px;
   }
 }
+
+.status-working {
+  border-color: yellow;
+}
+.status-success {
+  border-color: green;
+}
+.status-error {
+  border-color: red;
+}

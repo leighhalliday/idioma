@@ -21,3 +21,7 @@ gem 'ransack', '~> 1.4.1'
 gem 'will_paginate', '~> 3.0.7'
 gem 'simple_form', '~> 3.1.0.rc2'
 gem 'redis', '~> 3.1.0'
+
+group :assets do
+  gem 'coffee-rails'
+end
