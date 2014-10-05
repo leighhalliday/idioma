@@ -38,7 +38,7 @@ module Idioma
     # Checks to see if a given key should be ignored based on the ignore_keys array
     #
     # @param [String] The key to check against
-    # @returns [Boolean] Whether to ignore this key or not
+    # @return [Boolean] Whether to ignore this key or not
     def self.ignore_key?(key)
       Idioma.configuration.ignore_keys.each do |ignore_key|
         return true if key.to_s.include?(ignore_key)

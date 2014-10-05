@@ -1,4 +1,9 @@
-%h1= t('idioma.phrases')
+%h1
+  = t('idioma.phrases')
+  .pull-right
+    = link_to phrases_url(q: params[:q], format: :csv), class: "btn btn-default" do
+      %span.glyphicon.glyphicon-download
+      = t('idioma.csv')
 
 .highlight
   = search_form_for @q, :builder => SimpleForm::FormBuilder, class: "form-inline search" do |f|

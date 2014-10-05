@@ -5,11 +5,7 @@ module Idioma
 
     # == Attributes ===========================================================
 
-    #serialize :i18n_value, JSON
-
     # == Extensions ===========================================================
-
-    #include Idioma::Concerns::Models::DateFlag
 
     # == Relationships ========================================================
 
@@ -48,6 +44,7 @@ module Idioma
       end
     end
 
+    # Take what's in the database and prime the i18n backend store (Redis)
     def self.prime_backend
       find_each do |phrase|
         phrase.update_backend
@@ -56,26 +53,33 @@ module Idioma
 
     # == Instance Methods =====================================================
 
+    # Update the record and then push those changes to the i18n backend
+    #
+    # @param [Hash] The Phrase attributes to update
+    # @return [Boolean] Whether the update was successful
     def update_and_update_backend(params = {})
       self.translated_at = Time.zone.now if self.untranslated?
 
-      if self.update(params)
+      result = self.update(params)
+      if result
         self.update_backend
-        true
-      else
-        false
       end
+      result
     end
 
+    # Save and push the changes to the i18n backend
+    #
+    # @param [Hash] The Phrase attributes to save
+    # @return [Boolean] Whether the save was successful
     def save_and_update_backend(params = {})
-      if self.save(params)
+      result = self.save(params)
+      if result
         self.update_backend
-        true
-      else
-        false
       end
+      result
     end
 
+    # Will update the i18n backend if it has been configured
     def update_backend
       if Idioma.configuration.redis_backend
         if i18n_value.present?
@@ -87,19 +91,20 @@ module Idioma
     end
 
     # Is this phrase translated?
-    # @returns [Boolean]
+    # @return [Boolean]
     def translated?
       translated_at.present?
     end
 
     # Is this phrase untranslated?
-    # @returns [Boolean]
+    # @return [Boolean]
     def untranslated?
       !translated?
     end
 
     private
 
+    # Strip the values before validating the model
     def strip_values
       [:i18n_value].each do |field|
         self.send("#{field}=", self.send(field).to_s.strip)

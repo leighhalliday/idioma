@@ -13,3 +13,7 @@ en:
     notes: "Notes"
     save: "Save"
     editing_phrase: "Editing Phrase"
+    csv: "CSV"
+    ans_yes: "Yes"
+    ans_no: "No"
+    translated: "Translated"
