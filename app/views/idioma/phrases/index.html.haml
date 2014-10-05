@@ -29,7 +29,8 @@
             - if from_default.present?
               %small= from_default
               %br/
-          %input.i18n_value.col-sm-12{id: "PhraseI18nValue#{phrase.id}", value: phrase.i18n_value, data: {url: phrase_url(phrase)}}
+          .form-group
+            %input.i18n_value.form-control.col-sm-12{id: "PhraseI18nValue#{phrase.id}", value: phrase.i18n_value, data: {url: phrase_url(phrase)}}
         %td
           - if phrase.untranslated?
             %span.label.label-warning= t('idioma.untranslated')
