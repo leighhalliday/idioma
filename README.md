@@ -15,6 +15,45 @@ Idioma is a Ruby Engine to help manage the flow and editing of translations.
 * Test persisting to Redis using https://github.com/guilleiguaran/fakeredis
 * Improve interface by converting into SPA with Angular.
 
+### Starting
+Add it to your gemfile.
+```ruby
+gem 'idioma'
+```
+
+Mount it in your config/routes.rb.
+```ruby
+# config/routes.rb
+MyApp::Application.routes.draw do
+  mount Idioma::Engine => "/idioma"
+end
+```
+
+### Security
+You can secure access to the Idioma interface by using [route constraints](http://guides.rubyonrails.org/routing.html#request-based-constraints).
+
+Example 1 by IP address.
+```ruby
+# config/routes.rb
+idioma_constraint = lambda { |request| request.remote_ip == '127.0.0.1' }
+constraints idioma_constraint do
+  mount Idioma::Engine => "/idioma"
+end
+```
+
+Example 2 by using Devise or another warden based authentication system.
+```ruby
+# config/routes.rb
+idioma_constraint = lambda do |request|
+  current_user = request.env['warden'].user
+  current_user.present? && current_user.respond_to?(:is_admin?) && current_user.is_admin?
+end
+
+constraints idioma_constraint do
+  mount Idioma::Engine => "/idioma"
+end
+```
+
 ### Configuration
 Setting | Default | Description
 ------- | ------- | -----------
