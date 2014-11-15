@@ -4,20 +4,22 @@
     = link_to phrases_url(q: params[:q], format: :csv), class: "btn btn-default" do
       %span.glyphicon.glyphicon-download
       = t('idioma.csv')
+    = link_to phrases_url(q: params[:q], format: :yaml), class: "btn btn-default" do
+      %span.glyphicon.glyphicon-download
+      = t('idioma.yaml')
 
 .highlight
-  = search_form_for @q, :builder => SimpleForm::FormBuilder, class: "form-inline search" do |f|
-    = f.input :locale_eq, collection: Idioma.configuration.locales, required: false, empty: true, label: t('idioma.locale')
-    = f.input :i18n_key_or_i18n_value_cont, label: t('idioma.key_value'), required: false
-    = f.button :submit, value: t('idioma.search')
+  = form_tag(phrases_path, method: :get, class: "form-inline search") do
+    = select_tag :locale, options_for_select(Idioma.configuration.locales, selected: params[:locale]), class: "form-control"
+    = text_field_tag :q, params[:q], placeholder: t('idioma.key_value'), class: "form-control"
+    = submit_tag t('idioma.search'), class: "btn btn-default"
 
 %table.table
   %thead
     %tr
-      %th= sort_link(@q, :locale, t('idioma.locale'))
-      %th= sort_link(@q, :i18n_key, t('idioma.key'))
-      %th= sort_link(@q, :i18n_value, t('idioma.value'))
-      %th
+      %th= t('idioma.locale')
+      %th= t('idioma.key')
+      %th= t('idioma.value')
       %th
     - @phrases.each do |phrase|
       %tr
@@ -34,8 +36,6 @@
         %td
           - if phrase.untranslated?
             %span.label.label-warning= t('idioma.untranslated')
-        %td
-          = link_to t('idioma.edit'), edit_phrase_path(phrase), class: "btn btn-default"
 
 = will_paginate @posts
 

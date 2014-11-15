@@ -1,3 +1,10 @@
+require 'pg'
+require 'haml'
+require 'will_paginate'
+require 'bootstrap-sass'
+require 'jquery-rails'
+require 'coffee-rails'
+
 module Idioma
   class Engine < ::Rails::Engine
     isolate_namespace Idioma

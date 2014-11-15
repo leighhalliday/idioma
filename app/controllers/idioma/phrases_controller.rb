@@ -6,24 +6,35 @@ module Idioma
 
     # GET /phrases
     def index
-      @q = Phrase.search(params[:q])
+      params[:locale] ||= I18n.default_locale
+      scope = Phrase.where(locale: params[:locale])
+
+      if params[:q].present?
+        scope = scope.where("i18n_key ilike ? OR i18n_value ilike ?", "%#{params[:q]}%", "%#{params[:q]}%")
+      end
+
       respond_to do |format|
         format.html {
-          @phrases = @q.result.paginate(:page => params[:page])
+          @phrases = scope.paginate(:page => params[:page])
         }
         format.csv {
-          render text: PhraseExporter.to_csv(@q.result)
+          render text: PhraseExporter.to_csv(scope)
+        }
+        format.yaml {
+          render text: PhraseExporter.to_yaml(scope)
         }
         format.json {
-          @phrases = @q.result.paginate(:page => params[:page])
+          @phrases = scope.paginate(:page => params[:page])
           render json: {
-            "_metadata" => {
-              current_page: @phrases.current_page,
-              per_page: @phrases.per_page,
-              total_entries: @phrases.total_entries
+            meta: {
+              pagination: {
+                current_page: @phrases.current_page,
+                per_page: @phrases.per_page,
+                total_entries: @phrases.total_entries
+              }
             },
-            phrases: @phrases.to_json
-          }.to_json
+            phrases: @phrases
+          }
         }
       end
 
@@ -33,13 +44,9 @@ module Idioma
     def show
       respond_to do |format|
         format.json {
-          render json: @phrase.to_json
+          render json: @phrase
         }
       end
-    end
-
-    # GET /phrases/1/edit
-    def edit
     end
 
     # PATCH/PUT /phrases/1
@@ -55,11 +62,11 @@ module Idioma
         }
         format.json {
           if result
-            render json: @phrase.to_json
+            render json: @phrase
           else
             render json: {
               errors: @phrase.errors.messages
-            }.merge(@phrase.attributes).to_json,
+            }.merge(@phrase.attributes),
             status: :bad_request
           end
         }

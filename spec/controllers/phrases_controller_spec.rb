@@ -20,13 +20,13 @@ describe Idioma::PhrasesController do
 
       it "filters results" do
         phrase = create(:phrase)
-        get :index, q: {i18n_key_eq: phrase.i18n_key}
+        get :index, q: phrase.i18n_key
         expect(assigns(:phrases)).to include(phrase)
       end
 
       it "filters no results" do
         phrase = create(:phrase)
-        get :index, q: {i18n_key_eq: "nope"}
+        get :index, q: "nope"
         expect(assigns(:phrases).empty?).to eq(true)
       end
     end
@@ -36,14 +36,14 @@ describe Idioma::PhrasesController do
         phrase = create(:phrase)
         get :index, format: :json
         body_hash = JSON.parse(response.body)
-        expect(JSON.parse(body_hash["phrases"]).first).to eq(JSON.parse(phrase.to_json))
+        expect(body_hash["phrases"].first).to eq(JSON.parse(phrase.to_json))
       end
 
       it "includes metadata" do
         phrase = create(:phrase)
         get :index, format: :json
         body_hash = JSON.parse(response.body)
-        expect(body_hash["_metadata"]).to eq({
+        expect(body_hash["meta"]["pagination"]).to eq({
           "current_page"  => 1,
           "per_page"      => 30,
           "total_entries" => 1
@@ -53,45 +53,7 @@ describe Idioma::PhrasesController do
 
   end
 
-  describe "GET #edit" do
-    it "when found" do
-      phrase = create(:phrase)
-      get :edit, id: phrase
-      expect(assigns(:phrase)).to eq(phrase)
-      expect(response).to be_success
-    end
-
-    it "when not found" do
-      get :edit, id: 123
-      expect(response).to redirect_to(phrases_path)
-    end
-  end
-
   describe "POST #update" do
-    context "html" do
-      it "when not found" do
-        post :update, id: 123
-        expect(response).to redirect_to(phrases_path)
-      end
-
-      it "saves data" do
-        phrase = create(:phrase)
-        post :update, id: phrase, phrase: {i18n_value: "New value"}
-        phrase.reload
-        expect(assigns(:phrase)).to eq(phrase)
-        expect(phrase.i18n_value).to eq("New value")
-      end
-
-      it "re-renders when validation error" do
-        phrase = create(:phrase)
-        post :update, id: phrase, phrase: {locale: nil}
-        phrase.reload
-        expect(assigns(:phrase)).to eq(phrase)
-        expect(phrase.locale).to eq("en")
-        expect(response).to render_template(:edit)
-      end
-    end
-
     context "json" do
       it "saves and renders phrase as json" do
         phrase = create(:phrase)

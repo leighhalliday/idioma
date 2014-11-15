@@ -12,16 +12,3 @@ gemspec
 
 # To use debugger
 # gem 'debugger'
-
-gem 'rails', '~> 4.2.0.beta2'
-gem 'haml', '~> 4.0.5'
-gem 'bootstrap-sass', '~> 3.2.0.2'
-gem 'jquery-rails', '~> 3.1.2'
-gem 'ransack', '~> 1.4.1'
-gem 'will_paginate', '~> 3.0.7'
-gem 'simple_form', '~> 3.1.0.rc2'
-gem 'redis', '~> 3.1.0'
-
-group :assets do
-  gem 'coffee-rails'
-end

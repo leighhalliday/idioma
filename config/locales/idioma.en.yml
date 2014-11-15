@@ -14,6 +14,7 @@ en:
     save: "Save"
     editing_phrase: "Editing Phrase"
     csv: "CSV"
+    yaml: "YAML"
     ans_yes: "Yes"
     ans_no: "No"
     translated: "Translated"
