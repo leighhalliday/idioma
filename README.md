@@ -7,13 +7,13 @@ Idioma is a Ruby Engine to help manage the flow and editing of translations.
 * Interface for managing translations.
 * Duplicate translations from one locale to other locales.
 * DB changes will be persisted to Redis I18n backend store if supplied.
+* Exports translations from DB into CSV and YAML formats.
 
 ### Pending Features
-* Export translations from DB into CSV or yaml format.
 * Import translations from CSV into DB.
 * Stats on each locale, giving percentage of translated/missing.
-* Inline translation editing
 * Test persisting to Redis using https://github.com/guilleiguaran/fakeredis
+* Improve interface by converting into SPA with Angular.
 
 ### Configuration
 Setting | Default | Description
@@ -25,11 +25,19 @@ redis_backend | nil | Should be an I18n backend of a Redis store.
 
 ### Setup
 Import the migrations into your application
-```rake idioma:install:migrations```
+```
+rake idioma:install:migrations
+```
+
 To populate the idioma_phrases table with translations from your locales/yaml files.
-```rake idioma:import_from_extraction```
+```
+rake idioma:import_from_extraction
+```
+
 To duplicate all translations from a locale to a new locale (as untranslated).
-```rake idioma:duplicate_for_locales base_locale=en new_locale=es```
+```
+rake idioma:duplicate_for_locales base_locale=en new_locale=es
+```
 
 ### Example
 ```ruby
