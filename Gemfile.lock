@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    idioma (0.0.1)
+    idioma (0.1.0)
       bootstrap-sass (~> 3.3.1.0)
       coffee-rails (~> 4.1.0)
       haml (~> 4.0.5)
