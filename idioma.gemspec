@@ -19,13 +19,13 @@ Gem::Specification.new do |s|
   s.test_files = Dir["spec/**/*"]
 
   # Dependencies
-  s.add_dependency 'pg', '~> 0.17'
-  s.add_dependency 'rails', '~> 4.1'
-  s.add_dependency 'haml', '~> 4.0'
-  s.add_dependency 'bootstrap-sass', '~> 3.3'
-  s.add_dependency 'jquery-rails', '~> 3.1'
-  s.add_dependency 'will_paginate', '~> 3.0'
-  s.add_dependency 'coffee-rails', '~> 4.1'
+  s.add_dependency 'pg',             '>= 0.17'
+  s.add_dependency 'rails',          '>= 4.0'
+  s.add_dependency 'haml',           '>= 4.0'
+  s.add_dependency 'bootstrap-sass', '>= 3.3'
+  s.add_dependency 'jquery-rails',   '>= 3.1'
+  s.add_dependency 'will_paginate',  '>= 3.0'
+  s.add_dependency 'coffee-rails',   '>= 4.0'
 
   # Dev Dependencies
   s.add_development_dependency 'rspec-rails', '~> 3.1'
