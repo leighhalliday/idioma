@@ -15,8 +15,34 @@ module Idioma
     # @param [Phrase] The Phrase to update or create
     # @return [Boolean] Result of the store_translations command from the Redis backend (I18n::Backend)
     def self.update_phrase(phrase)
+      value = self.parse_value(phrase.i18n_value)
+
       Idioma.configuration.redis_backend.
-        store_translations(phrase.locale, {phrase.i18n_key => phrase.i18n_value}, :escape => false)
+        store_translations(phrase.locale, {phrase.i18n_key => value}, :escape => false)
     end
+
+    def self.integer?(input)
+      !!(input =~ /^-?\d+$/)
+    end
+
+    def self.float?(input)
+      true if Float(input) rescue false
+    end
+
+    def self.parse_value(value)
+      case
+      when (value =~ /^\[.*\]$/) || (value =~ /^\{.*\}$/)
+        eval(value)
+      when value == "nil"
+        nil
+      when self.integer?(value)
+        Integer(value)
+      when self.float?(value)
+        Float(value)
+      else
+        value
+      end
+    end
+
   end
 end

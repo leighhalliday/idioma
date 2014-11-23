@@ -4,6 +4,11 @@ namespace :idioma do
     Idioma::PhraseImporter.import_from_extraction
   end
 
+  desc "Prime backend"
+  task :prime_backend => :environment do
+    Idioma::Phrase.prime_backend
+  end
+
   # rake idioma:duplicate_for_locales base_locale=en new_locale=es
   desc "Duplicate for locales"
   task :duplicate_for_locales => :environment do

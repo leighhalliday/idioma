@@ -55,15 +55,15 @@ end
 ```
 
 ### Configuration
-Setting | Default | Description
-------- | ------- | -----------
-default_locale | :en | Used for showing the default translation (for translators to translate from) for a given phrase
-locales | [:en] | Idioma will only import translations of locales in this list... ignoring the rest
-ignore_keys | ["ransack", "simple_form"] | Gems sometimes bring their own phrases that you don't actually need translated
-redis_backend | nil | Should be an I18n backend of a Redis store.
+Setting | Default | Data Type | Description
+------- | ------- | --------- | -----------
+default_locale | :en | Symbol or lambda | Used for showing the default translation (for translators to translate from) for a given phrase
+locales | [:en] | Array of symbols or lambda | Idioma will only import translations of locales in this list... ignoring the rest
+ignore_keys | ["ransack", "simple_form"] | Array of strings | Gems sometimes bring their own phrases that you don't actually need translated
+redis_backend | nil | I18n::Backend::KeyValue | Should be an I18n backend of a Redis store.
 
 ### Setup
-Import the migrations into your application
+Import the migrations into your application. These should be imported by default.
 ```
 rake idioma:install:migrations
 ```
@@ -78,7 +78,7 @@ To duplicate all translations from a locale to a new locale (as untranslated).
 rake idioma:duplicate_for_locales base_locale=en new_locale=es
 ```
 
-### Example
+### Examples
 ```ruby
 $redis = Redis.new(:host => 'localhost', :port => 6379)
 I18n.backend = I18n::Backend::KeyValue.new($redis)
@@ -87,5 +87,15 @@ Idioma.configure do |configure|
   configure.default_locale = :en
   configure.locales = [:en, :es, :fr]
   configure.redis_backend = I18n.backend
+end
+```
+
+You can use procs for default_locale and locales options. If you'd like to query a database for these values.
+```ruby
+Idioma.configure do |configure|
+  configure.default_locale = :en
+  configure.locales = -> {
+    [:en, :es, :fr]
+  }
 end
 ```

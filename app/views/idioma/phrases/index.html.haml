@@ -10,7 +10,7 @@
 
 .highlight
   = form_tag(phrases_path, method: :get, class: "form-inline search") do
-    = select_tag :locale, options_for_select(Idioma.configuration.locales, selected: params[:locale]), class: "form-control"
+    = select_tag :locale_eq, options_for_select(Idioma.configuration.locales, selected: params[:locale_eq]), class: "form-control"
     = text_field_tag :q, params[:q], placeholder: t('idioma.key_value'), class: "form-control"
     = submit_tag t('idioma.search'), class: "btn btn-default"
 
@@ -20,7 +20,6 @@
       %th= t('idioma.locale')
       %th= t('idioma.key')
       %th= t('idioma.value')
-      %th
     - @phrases.each do |phrase|
       %tr
         %td= phrase.locale
@@ -33,9 +32,6 @@
               %br/
           .form-group
             %input.i18n_value.form-control.col-sm-12{id: "PhraseI18nValue#{phrase.id}", value: phrase.i18n_value, data: {url: phrase_url(phrase)}}
-        %td
-          - if phrase.untranslated?
-            %span.label.label-warning= t('idioma.untranslated')
 
 = will_paginate @posts
 

@@ -6,8 +6,8 @@ module Idioma
 
     # GET /phrases
     def index
-      params[:locale] ||= I18n.default_locale
-      scope = Phrase.where(locale: params[:locale])
+      params[:locale_eq] ||= I18n.default_locale
+      scope = Phrase.where(locale: params[:locale_eq])
 
       if params[:q].present?
         scope = scope.where("i18n_key ilike ? OR i18n_value ilike ?", "%#{params[:q]}%", "%#{params[:q]}%")
@@ -55,7 +55,7 @@ module Idioma
       respond_to do |format|
         format.html {
           if result
-            redirect_to [:edit, @phrase], flash: {success: t('idioma.record_updated')}
+            redirect_to [:edit, @phrase]
           else
             render :edit
           end
