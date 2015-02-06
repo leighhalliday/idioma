@@ -11,7 +11,7 @@
       .container
         %a.navbar-brand{href: "#"} Idioma
         %ul.nav.navbar-nav
-          %li= link_to t('idioma.phrases'), phrases_url
+          %li= link_to t('idioma.phrases'), phrases_path
 
     - flash_lookups = {notice: "info", success: "success", error: "danger"}
     - flash.each do |type, value|

@@ -1,10 +1,10 @@
 %h1
   = t('idioma.phrases')
   .pull-right
-    = link_to phrases_url(q: params[:q], format: :csv), class: "btn btn-default" do
+    = link_to phrases_path(q: params[:q], format: :csv), class: "btn btn-default" do
       %span.glyphicon.glyphicon-download
       = t('idioma.csv')
-    = link_to phrases_url(q: params[:q], format: :yaml), class: "btn btn-default" do
+    = link_to phrases_path(q: params[:q], format: :yaml), class: "btn btn-default" do
       %span.glyphicon.glyphicon-download
       = t('idioma.yaml')
 
@@ -31,7 +31,7 @@
               %small= from_default
               %br/
           .form-group
-            %input.i18n_value.form-control.col-sm-12{id: "PhraseI18nValue#{phrase.id}", value: phrase.i18n_value, data: {url: phrase_url(phrase)}}
+            %input.i18n_value.form-control.col-sm-12{id: "PhraseI18nValue#{phrase.id}", value: phrase.i18n_value, data: {url: phrase_path(phrase)}}
 
 = will_paginate @posts
 
