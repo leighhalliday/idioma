@@ -99,3 +99,9 @@ Idioma.configure do |configure|
   }
 end
 ```
+
+### Tasks
+Popular your Redis backend with what is inside the database.
+```
+rake idioma:prime_backend
+```
