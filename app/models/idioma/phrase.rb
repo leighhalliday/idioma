@@ -58,7 +58,7 @@ module Idioma
     # @param [Hash] The Phrase attributes to update
     # @return [Boolean] Whether the update was successful
     def update_and_update_backend(params = {})
-      self.translated_at = Time.zone.now if self.untranslated?
+      self.translated_at = Time.zone.now if self.phrase_untranslated?
 
       result = self.update(params)
       if result
@@ -92,14 +92,14 @@ module Idioma
 
     # Is this phrase translated?
     # @return [Boolean]
-    def translated?
+    def phrase_translated?
       translated_at.present?
     end
 
     # Is this phrase untranslated?
     # @return [Boolean]
-    def untranslated?
-      !translated?
+    def phrase_untranslated?
+      !phrase_translated?
     end
 
     private
@@ -107,7 +107,7 @@ module Idioma
     # Strip the values before validating the model
     def strip_values
       [:i18n_value].each do |field|
-        self.send("#{field}=", self.send(field).to_s.strip)
+        self.send(:"#{field}=", self.send(field).to_s.strip)
       end
     end
 

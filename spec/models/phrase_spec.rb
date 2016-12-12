@@ -2,18 +2,18 @@ require 'spec_helper'
 
 describe Idioma::Phrase do
 
-  describe "translated?" do
+  describe "phrase_translated?" do
 
     let(:phrase) { build(:phrase) }
 
     it "should be translated" do
       phrase.translated_at = Time.zone.now
-      expect(phrase.translated?).to eq(true)
+      expect(phrase.phrase_translated?).to eq(true)
     end
 
     it "should not be translated" do
       phrase.translated_at = nil
-      expect(phrase.translated?).to eq(false)
+      expect(phrase.phrase_translated?).to eq(false)
     end
 
   end
@@ -24,12 +24,12 @@ describe Idioma::Phrase do
 
     it "should be untranslated" do
       phrase.translated_at = nil
-      expect(phrase.untranslated?).to eq(true)
+      expect(phrase.phrase_untranslated?).to eq(true)
     end
 
     it "should not be untranslated" do
       phrase.translated_at = Time.zone.now
-      expect(phrase.untranslated?).to eq(false)
+      expect(phrase.phrase_untranslated?).to eq(false)
     end
 
   end

@@ -27,7 +27,7 @@ module Idioma
             i18n_value: value,
             translated_at: Time.zone.now
           })
-        elsif phrase.untranslated?
+        elsif phrase.phrase_untranslated?
           phrase.i18n_value = value
           phrase.translated_at = Time.zone.now if value.present?
         end

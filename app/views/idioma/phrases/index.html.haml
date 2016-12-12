@@ -31,7 +31,8 @@
               %small= from_default
               %br/
           .form-group
-            %input.i18n_value.form-control.col-sm-12{id: "PhraseI18nValue#{phrase.id}", value: phrase.i18n_value, data: {url: phrase_path(phrase)}}
+            %textarea.i18n_value.form-control.col-sm-12{id: "PhraseI18nValue#{phrase.id}", data: {url: phrase_path(phrase)}}
+              = phrase.i18n_value
 
 = will_paginate @posts
 

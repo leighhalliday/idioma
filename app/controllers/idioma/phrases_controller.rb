@@ -37,7 +37,6 @@ module Idioma
           }
         }
       end
-
     end
 
     # GET /phrases/1
