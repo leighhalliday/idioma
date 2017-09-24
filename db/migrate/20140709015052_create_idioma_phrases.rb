@@ -1,4 +1,4 @@
-class CreateIdiomaPhrases < ActiveRecord::Migration
+class CreateIdiomaPhrases < ActiveRecord::Migration[4.2]
   def change
     create_table :idioma_phrases do |t|
       t.string :locale

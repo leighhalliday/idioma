@@ -14,7 +14,7 @@ development:
   <<: *default
   encoding: unicode
   database: idioma
-  username: lhalliday
+  username: leighhalliday
   password:
 
 # Warning: The database defined as "test" will be erased and
@@ -24,5 +24,5 @@ test:
   <<: *default
   encoding: unicode
   database: idioma_test
-  username: lhalliday
+  username: leighhalliday
   password:
